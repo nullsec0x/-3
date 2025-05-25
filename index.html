@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Will You Be Mine?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Google Fonts Borel -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Borel&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body,
+    html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Borel', cursive;
+      background: url("background.jpg") no-repeat center center fixed;
+      background-size: cover;
+      color: #b27edb;
+      overflow-x: hidden;
+    }
+    .container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 240, 250, 0.85);
+      padding: 40px 60px;
+      border-radius: 30px;
+      box-shadow: 0 8px 30px rgba(178, 126, 219, 0.5);
+      max-width: 90vw;
+      text-align: center;
+      z-index: 10;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 2px #f7c4e9;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+    }
+    button.animated-btn {
+      background: linear-gradient(135deg, #f9c0e2, #fbc8f8);
+      border: none;
+      border-radius: 35px;
+      box-shadow: 0 8px 20px rgba(255, 182, 193, 0.6);
+      color: white;
+      cursor: pointer;
+      font-size: 1.5rem;
+      padding: 18px 45px;
+      transition: all 0.25s ease;
+      position: relative;
+      user-select: none;
+      outline: none;
+      animation: pulse 3s infinite;
+      font-family: 'Borel', cursive;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    button.animated-btn:hover {
+      transform: scale(1.15) rotate(-3deg);
+      box-shadow: 0 12px 30px rgba(255, 153, 204, 0.9);
+      background: linear-gradient(135deg, #ffc0cb, #ff9ecb);
+      animation: none;
+    }
+    @keyframes pulse {
+      0%,
+      100% {
+        box-shadow: 0 8px 20px rgba(255, 182, 193, 0.6);
+      }
+      50% {
+        box-shadow: 0 15px 30px rgba(255, 182, 193, 0.9);
+      }
+    }
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+      button.animated-btn {
+        font-size: 1.2rem;
+        padding: 14px 35px;
+      }
+      .container {
+        padding: 30px 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Will you be mine?</h1>
+    <div class="buttons">
+      <button id="yes" class="animated-btn">Yes</button>
+      <button id="no" class="animated-btn">No</button>
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
+    }
+
+    function moveButton() {
+      const padding = 20;
+      const btnWidth = noBtn.offsetWidth;
+      const btnHeight = noBtn.offsetHeight;
+
+      const maxX = window.innerWidth - btnWidth - padding;
+      const maxY = window.innerHeight - btnHeight - padding;
+
+      // Generate random positions across viewport
+      let x = Math.floor(Math.random() * window.innerWidth);
+      let y = Math.floor(Math.random() * window.innerHeight);
+
+      // Clamp inside visible area with padding
+      x = clamp(x, padding, maxX);
+      y = clamp(y, padding, maxY);
+
+      noBtn.style.position = "fixed";
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    }
+
+    noBtn.addEventListener("mouseover", moveButton);
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveButton();
+    });
+
+    yesBtn.addEventListener("click", () => {
+      window.location.href = "yes.html";
+    });
+  </script>
+</body>
+</html>

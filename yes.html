@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>I Knew It</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Borel&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: url("background.jpg") no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Borel', cursive;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b27edb;
+    }
+
+    .box {
+      background: rgba(255, 240, 250, 0.85);
+      border-radius: 30px;
+      box-shadow: 0 8px 30px rgba(178, 126, 219, 0.5);
+      padding: 40px 50px;
+      max-width: 90vw;
+      text-align: center;
+    }
+
+    video {
+      width: 100%;
+      max-width: 480px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      display: block;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-top: 25px;
+      color: #b27edb;
+      text-shadow: 1px 1px 2px #f7c4e9;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <video id="loveVid" playsinline autoplay muted>
+      <source src="surprise.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <h1>I knew you won't say no!!!</h1>
+  </div>
+
+  <script>
+    const video = document.getElementById("loveVid");
+
+    // Try to autoplay unmuted, fallback to muted if blocked
+    function playVideoUnmuted() {
+      video.muted = false;
+      const playPromise = video.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          video.muted = true;
+          video.play();
+        });
+      }
+    }
+
+    // Some browsers require user interaction to unmute, so wait for click/touch
+    window.addEventListener("load", () => {
+      playVideoUnmuted();
+    });
+
+    // Also listen for any user interaction to unmute ASAP
+    window.addEventListener("click", playVideoUnmuted);
+    window.addEventListener("touchstart", playVideoUnmuted);
+  </script>
+</body>
+</html>
