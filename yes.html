@@ -59,7 +59,6 @@
   <script>
     const video = document.getElementById("loveVid");
 
-    // Try to autoplay unmuted, fallback to muted if blocked
     function playVideoUnmuted() {
       video.muted = false;
       const playPromise = video.play();
@@ -72,12 +71,10 @@
       }
     }
 
-    // Some browsers require user interaction to unmute, so wait for click/touch
     window.addEventListener("load", () => {
       playVideoUnmuted();
     });
 
-    // Also listen for any user interaction to unmute ASAP
     window.addEventListener("click", playVideoUnmuted);
     window.addEventListener("touchstart", playVideoUnmuted);
   </script>
